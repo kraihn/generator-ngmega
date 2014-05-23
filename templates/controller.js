@@ -15,10 +15,10 @@
    */
   function _controller($scope, config){
 
-    $scope.title = '<%= classedModuleName %>';
+    $scope.title = '<%= classedName %>';
 
   }
 
   //Register the controller
-  module.controller('<%= classedModuleName %>Ctrl', ['$scope', '<%= scriptModuleName %>Config',  _controller]);
+  module.controller('<%= classedName %>Ctrl', ['$scope', '<%= scriptModuleName %>Config',  _controller]);
 })();

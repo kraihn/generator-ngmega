@@ -1,5 +1,6 @@
 'use strict';
 var util = require('util');
+var path = require('path');
 var MegaBase = require('../mega-base.js');
 
 
@@ -33,7 +34,7 @@ ControllerGenerator.prototype.askFor = function askFor() {
   }
 
   this.prompt(prompts, function (props) {
-    if(!this.scriptModuleName) {
+    if (!this.scriptModuleName) {
       this.scriptModuleName = props.moduleName;
     }
 
@@ -44,11 +45,11 @@ ControllerGenerator.prototype.askFor = function askFor() {
 ControllerGenerator.prototype.files = function files() {
 
   // Module controller
-  this.template('controller.js', 'src/app/' + this.scriptModuleName + '/controllers/' + this.name + '.js');
+  //this.template('controller.js', path.join(this.env.options.modulePath, this.scriptModuleName, 'controllers', this.name + '.js'));
 
   // Module view
-  this.template('partial.html', 'src/app/' + this.scriptModuleName + '/views/' + this.name + '.html');
-
+  //this.template('partial.html', path.join(this.env.options.modulePath, this.scriptModuleName, 'views', this.name + '.html'));
+console.log(this.scriptAppName);
 };
 
 module.exports = ControllerGenerator;

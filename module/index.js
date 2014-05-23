@@ -1,5 +1,6 @@
 'use strict';
 var util = require('util');
+var path = require('path');
 var MegaBase = require('../mega-base.js');
 
 
@@ -20,21 +21,16 @@ ModuleGenerator.prototype.init = function init() {
 
 ModuleGenerator.prototype.files = function files() {
 
-  // Create directories
-  this.mkdir('src/app/' + this.name);
-  this.mkdir('src/app/' + this.name + '/controllers');
-  this.mkdir('src/app/' + this.name + '/views');
-
   // Module init, config and route
-  this.template('module/_module.js', 'src/app/' + this.name + '/_module.js');
-  this.template('module/module.config.js', 'src/app/' + this.name + '/' + this.name + '.config.js');
-  this.template('module/module.routes.js', 'src/app/' + this.name + '/' + this.name + '.routes.js');
+  this.template('module/_module.js',path.join(this.env.options.modulePath, this.name,  '_module.js'));
+  this.template('module/module.config.js', path.join(this.env.options.modulePath, this.name, this.name + '.config.js'));
+  this.template('module/module.routes.js', path.join(this.env.options.modulePath, this.name, this.name + '.routes.js'));
 
   // Module controller
-  this.template('controller.js', 'src/app/' + this.name + '/controllers/' + this.name + '.js');
+  this.template('controller.js', path.join(this.env.options.modulePath, this.name, 'controllers', this.name + '.js'));
 
   // Module view
-  this.template('partial.html', 'src/app/' + this.name + '/views/' + this.name + '.html');
+  this.template('partial.html', path.join(this.env.options.modulePath, this.name, 'views', this.name + '.html'));
 
 };
 

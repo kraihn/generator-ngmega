@@ -45,11 +45,11 @@ ControllerGenerator.prototype.askFor = function askFor() {
 ControllerGenerator.prototype.files = function files() {
 
   // Module controller
-  //this.template('controller.js', path.join(this.env.options.modulePath, this.scriptModuleName, 'controllers', this.name + '.js'));
+  this.template('controller.js', path.join(this.env.options.modulePath, this.scriptModuleName, 'controllers', this.name + '.js'));
 
   // Module view
-  //this.template('partial.html', path.join(this.env.options.modulePath, this.scriptModuleName, 'views', this.name + '.html'));
-console.log(this.scriptAppName);
+  this.template('partial.html', path.join(this.env.options.modulePath, this.scriptModuleName, 'views', this.name + '.html'));
+
 };
 
 module.exports = ControllerGenerator;

@@ -51,8 +51,8 @@ var NgMegaGenerator = yeoman.generators.Base.extend({
         this.scriptSuffix = '.js';
 
         this.sourceRoot(path.join(__dirname, sourceRoot));
-        this.template('../../templates/app/app.config.js', path.join(this.env.options.appPath, this.env.options.scriptPath, 'app.config.js'));
-        this.template('../../templates/app/app.routes.js', path.join(this.env.options.appPath, this.env.options.scriptPath, 'app.routes.js'));
+        this.template('../../templates/app/config.js', path.join(this.env.options.appPath, this.env.options.scriptPath, 'config.js'));
+        this.template('../../templates/app/routes.js', path.join(this.env.options.appPath, this.env.options.scriptPath, 'routes.js'));
     },
 
     projectfiles: function () {

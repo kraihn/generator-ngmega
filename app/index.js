@@ -22,6 +22,8 @@ var NgMegaGenerator = yeoman.generators.Base.extend({
         } catch (e) {
         }
 
+        bower = bower || {};
+
         this.appname = bower.name || path.basename(process.cwd());
         this.appname = this._.slugify(this._.humanize(this.appname));
 

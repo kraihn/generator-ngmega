@@ -29,7 +29,7 @@ FilterGenerator.prototype.askFor = function askFor() {
       {
         name: 'moduleName',
         message: 'Enter your module name',
-        default: ''
+        default: this.name
       });
   }
 

@@ -1,6 +1,7 @@
 'use strict';
 var util = require('util');
 var path = require('path');
+var fs = require('fs');
 var yeoman = require('yeoman-generator');
 
 var Generator = module.exports = function Generator() {
@@ -11,6 +12,7 @@ var Generator = module.exports = function Generator() {
     bower = require(path.join(process.cwd(), 'bower.json'));
   } catch (e) {
   }
+    bower = bower || {};
 
   this.appname = bower.name || path.basename(process.cwd());
   this.appname = this._.slugify(this._.humanize(this.appname));
@@ -43,3 +45,15 @@ var Generator = module.exports = function Generator() {
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);
+
+Generator.prototype.moduleExistsCheck = function moduleExistsCheck() {
+  // Check if the _module.js file exists, and warn the user if it is missing.
+  // This is the basis for determining if a module has been defined.
+  if(!fs.existsSync(path.join(this.env.options.modulePath, this.scriptModuleName, '_module.js'))) {
+    console.log('Warning: the module you are referencing does not exist');
+    return false;
+  }
+  else {
+    return true;
+  }
+}

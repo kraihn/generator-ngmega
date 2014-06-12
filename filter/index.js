@@ -44,6 +44,9 @@ FilterGenerator.prototype.askFor = function askFor() {
 
 FilterGenerator.prototype.files = function files() {
 
+  // Check if module exists
+  this.moduleExistsCheck();
+
   // Module service
   this.template('filter.js', path.join(this.env.options.modulePath, this.scriptModuleName, 'filters', this.name + '-filter.js'));
 

@@ -44,6 +44,9 @@ ServiceGenerator.prototype.askFor = function askFor() {
 
 ServiceGenerator.prototype.files = function files() {
 
+    // Check if module exists
+    this.moduleExistsCheck();
+
     // Module service
     this.template('service.js', path.join(this.env.options.modulePath, this.scriptModuleName, 'services', this.name + '-service.js'));
 

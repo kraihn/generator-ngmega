@@ -44,6 +44,9 @@ DirectiveGenerator.prototype.askFor = function askFor() {
 
 DirectiveGenerator.prototype.files = function files() {
 
+    // Check if module exists
+    this.moduleExistsCheck();
+
     // Module service
     this.template('directive.js', path.join(this.env.options.modulePath, this.scriptModuleName, 'directives', this.name + '-directive.js'));
 

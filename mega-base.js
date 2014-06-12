@@ -2,6 +2,7 @@
 var util = require('util');
 var path = require('path');
 var fs = require('fs');
+var colors = require('colors');
 var yeoman = require('yeoman-generator');
 
 var Generator = module.exports = function Generator() {
@@ -50,7 +51,7 @@ Generator.prototype.moduleExistsCheck = function moduleExistsCheck() {
   // Check if the _module.js file exists, and warn the user if it is missing.
   // This is the basis for determining if a module has been defined.
   if(!fs.existsSync(path.join(this.env.options.modulePath, this.scriptModuleName, '_module.js'))) {
-    console.log('Warning: the module you are referencing does not exist');
+    console.warn('Warning: the module you are referencing does not exist'.yellow);
     return false;
   }
   else {

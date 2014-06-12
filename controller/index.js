@@ -44,6 +44,9 @@ ControllerGenerator.prototype.askFor = function askFor() {
 
 ControllerGenerator.prototype.files = function files() {
 
+  // Check if module exists
+  this.moduleExistsCheck();
+
   // Module controller
   this.template('controller.js', path.join(this.env.options.modulePath, this.scriptModuleName, 'controllers', this.name + '.js'));
 

@@ -17,7 +17,7 @@
     "test": "mocha"
   },
   "files": [
-    "app"
+    "app", "controller", "directive", "filter", "module", "service", "templates", "mega-base.js"
   ],
   "keywords": [
     "yeoman-generator"

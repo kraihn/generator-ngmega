@@ -12,6 +12,8 @@ var Generator = module.exports = function Generator() {
   } catch (e) {
   }
 
+  bower = bower || {};
+
   this.appname = bower.name || path.basename(process.cwd());
   this.appname = this._.slugify(this._.humanize(this.appname));
 

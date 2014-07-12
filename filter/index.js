@@ -25,11 +25,14 @@ FilterGenerator.prototype.askFor = function askFor() {
   var prompts = [];
 
   if (!this.scriptModuleName) {
+
+    var defaultModuleName = (this.options.common || this.options.c) ? 'filters' : this.name;
+
     prompts.push(
       {
         name: 'moduleName',
         message: 'Enter your module name',
-        default: this.name
+        default: defaultModuleName
       });
   }
 
@@ -44,8 +47,10 @@ FilterGenerator.prototype.askFor = function askFor() {
 
 FilterGenerator.prototype.files = function files() {
 
+  var destPath = (this.options.common || this.options.c) ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
+
   // Module service
-  this.template('filter.js', path.join(this.env.options.modulePath, this.scriptModuleName, 'filters', this.name + '-filter.js'));
+  this.template('filter.js', path.join(destPath, 'filters', this.name + '-filter.js'));
 
 };
 

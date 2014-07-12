@@ -25,7 +25,7 @@ ServiceGenerator.prototype.askFor = function askFor() {
 
   if (!this.scriptModuleName) {
 
-    var defaultModuleName = (this.options.common || this.options.c) ? 'services' : this.name;
+    var defaultModuleName = this.options.common ? 'services' : this.name;
 
     prompts.push(
       {
@@ -46,7 +46,8 @@ ServiceGenerator.prototype.askFor = function askFor() {
 
 ServiceGenerator.prototype.files = function files() {
 
-  var destPath = (this.options.common || this.options.c) ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
+  var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
+  this.scriptConfig = this.options.common ? 'appConfig' : this.scriptModuleName + "Config', 'appConfig";
 
   // Module service
   this.template('service.js', path.join(destPath, 'services', this.name + '-service.js'));

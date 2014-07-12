@@ -44,6 +44,10 @@ var Generator = module.exports = function Generator() {
     this.env.options.testPath = bower.testPath || 'test/spec';
   }
 
+  if (!this.options.common) {
+    this.options.common = this.options.c || false;
+  }
+
   var sourceRoot = '/templates';
   this.scriptSuffix = '.js';
 

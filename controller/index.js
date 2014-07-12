@@ -26,7 +26,7 @@ ControllerGenerator.prototype.askFor = function askFor() {
 
   if (!this.scriptModuleName) {
 
-    var defaultModuleName = (this.options.common || this.options.c) ? 'controllers' : this.name;
+    var defaultModuleName = this.options.common ? 'controllers' : this.name;
 
     prompts.push(
       {
@@ -47,7 +47,7 @@ ControllerGenerator.prototype.askFor = function askFor() {
 
 ControllerGenerator.prototype.files = function files() {
 
-  var destPath = (this.options.common || this.options.c) ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
+  var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
 
   // Module controller
   this.template('controller.js', path.join(destPath, 'controllers', this.name + '.js'));

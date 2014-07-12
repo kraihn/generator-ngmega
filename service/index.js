@@ -5,47 +5,51 @@ var MegaBase = require('../mega-base.js');
 
 
 var ServiceGenerator = function ModuleGenerator(args, options, config) {
-    MegaBase.apply(this, arguments);
+  MegaBase.apply(this, arguments);
 };
 
 util.inherits(ServiceGenerator, MegaBase);
 
 ServiceGenerator.prototype.init = function init() {
-    console.log('You called the service subgenerator with the argument ' + this.name + '.');
+  console.log('You called the service subgenerator with the argument ' + this.name + '.');
 
-    // Assume second argument as module name
-    this.scriptModuleName = this.arguments[1];
-
+  // Assume second argument as module name
+  this.scriptModuleName = this.arguments[1];
 };
 
 ServiceGenerator.prototype.askFor = function askFor() {
 
-    var cb = this.async();
+  var cb = this.async();
 
-    var prompts = [];
+  var prompts = [];
 
+  if (!this.scriptModuleName) {
+
+    var defaultModuleName = (this.options.common || this.options.c) ? 'services' : this.name;
+
+    prompts.push(
+      {
+        name: 'moduleName',
+        message: 'Enter your module name',
+        default: defaultModuleName
+      });
+  }
+
+  this.prompt(prompts, function (props) {
     if (!this.scriptModuleName) {
-        prompts.push(
-            {
-                name: 'moduleName',
-                message: 'Enter your module name',
-                default: this.name
-            });
+      this.scriptModuleName = props.moduleName;
     }
 
-    this.prompt(prompts, function (props) {
-        if (!this.scriptModuleName) {
-            this.scriptModuleName = props.moduleName;
-        }
-
-        cb();
-    }.bind(this));
+    cb();
+  }.bind(this));
 };
 
 ServiceGenerator.prototype.files = function files() {
 
-    // Module service
-    this.template('service.js', path.join(this.env.options.modulePath, this.scriptModuleName, 'services', this.name + '-service.js'));
+  var destPath = (this.options.common || this.options.c) ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
+
+  // Module service
+  this.template('service.js', path.join(destPath, 'services', this.name + '-service.js'));
 
 };
 

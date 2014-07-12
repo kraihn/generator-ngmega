@@ -26,7 +26,7 @@ FilterGenerator.prototype.askFor = function askFor() {
 
   if (!this.scriptModuleName) {
 
-    var defaultModuleName = (this.options.common || this.options.c) ? 'filters' : this.name;
+    var defaultModuleName = this.options.common ? 'filters' : this.name;
 
     prompts.push(
       {
@@ -47,7 +47,7 @@ FilterGenerator.prototype.askFor = function askFor() {
 
 FilterGenerator.prototype.files = function files() {
 
-  var destPath = (this.options.common || this.options.c) ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
+  var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
 
   // Module service
   this.template('filter.js', path.join(destPath, 'filters', this.name + '-filter.js'));

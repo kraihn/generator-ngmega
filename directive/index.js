@@ -26,7 +26,7 @@ DirectiveGenerator.prototype.askFor = function askFor() {
 
   if (!this.scriptModuleName) {
 
-    var defaultModuleName = (this.options.common || this.options.c) ? 'directives' : this.name;
+    var defaultModuleName = this.options.common ? 'directives' : this.name;
 
     prompts.push(
       {
@@ -47,7 +47,7 @@ DirectiveGenerator.prototype.askFor = function askFor() {
 
 DirectiveGenerator.prototype.files = function files() {
 
-  var destPath = (this.options.common || this.options.c) ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
+  var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
 
   // Module service
   this.template('directive.js', path.join(destPath, 'directives', this.name + '-directive.js'));

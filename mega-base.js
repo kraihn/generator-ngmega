@@ -32,7 +32,13 @@ var Generator = module.exports = function Generator() {
     this.options.scriptPath = this.env.options.scriptPath;
   }
 
+  if (typeof this.env.options.commonPath === 'undefined') {
+    this.env.options.commonPath = bower.commonPath || 'common';
+    this.options.commonPath = this.env.options.commonPath;
+  }
+
   this.env.options.modulePath = path.join(this.env.options.appPath, this.env.options.scriptPath);
+  this.env.options.commonPath = path.join(this.env.options.appPath, this.env.options.commonPath);
 
   if (typeof this.env.options.testPath === 'undefined') {
     this.env.options.testPath = bower.testPath || 'test/spec';

@@ -11,7 +11,7 @@ var ServiceGenerator = function ModuleGenerator(args, options, config) {
 util.inherits(ServiceGenerator, MegaBase);
 
 ServiceGenerator.prototype.init = function init() {
-  console.log('You called the service subgenerator with the argument ' + this.name + '.');
+  this.log('You called the service subgenerator with the argument ' + this.name + '.');
 
   // Assume second argument as module name
   this.scriptModuleName = this.arguments[1];

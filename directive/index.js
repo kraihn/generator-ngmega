@@ -11,7 +11,7 @@ var DirectiveGenerator = function ModuleGenerator(args, options, config) {
 util.inherits(DirectiveGenerator, MegaBase);
 
 DirectiveGenerator.prototype.init = function init() {
-  console.log('You called the directive subgenerator with the argument ' + this.name + '.');
+  this.log('You called the directive subgenerator with the argument ' + this.name + '.');
 
   // Assume second argument as module name
   this.scriptModuleName = this.arguments[1];

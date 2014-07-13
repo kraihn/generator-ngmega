@@ -11,7 +11,7 @@ var FilterGenerator = function ModuleGenerator(args, options, config) {
 util.inherits(FilterGenerator, MegaBase);
 
 FilterGenerator.prototype.init = function init() {
-  console.log('You called the filter subgenerator with the argument ' + this.name + '.');
+  this.log('You called the filter subgenerator with the argument ' + this.name + '.');
 
   // Assume second argument as module name
   this.scriptModuleName = this.arguments[1];

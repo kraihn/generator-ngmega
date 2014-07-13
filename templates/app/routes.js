@@ -1,4 +1,4 @@
-(function(){
+(function () {
   'use strict';
 
   /**
@@ -12,7 +12,7 @@
    * @param $scope
    * @constructor
    */
-  function routeConfiguration($routeProvider) {
+  function _routeConfiguration($routeProvider) {
     $routeProvider
       .otherwise({
         redirectTo: '/'
@@ -22,5 +22,5 @@
   /**
    * Configure the routes within the app
    */
-  app.config(['$routeProvider',routeConfiguration]);
+  app.config(['$routeProvider', _routeConfiguration]);
 })();

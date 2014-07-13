@@ -1,4 +1,3 @@
-
 (function () {
   'use strict';
 
@@ -13,12 +12,12 @@
    * Service Implementation
    * @param $scope
    */
-  function service($q, $http, $filter, $cacheFactory, config, appConfig) {
+  function _service($q, $http, $filter, $cacheFactory, config, appConfig) {
 
     var apiEndpoint = appConfig.apiEndpoint.replace(/\/$/, ''),
       cache = $cacheFactory('<%= cameledName %>');
 
-    function route(path){
+    function route(path) {
       path = path.replace(/^\//, '');
       return [appConfig.apiEndpoint, path].join('/');
     }
@@ -29,12 +28,12 @@
      * @param callback
      * @returns {*}
      */
-    function getCacheOtherwise(key, callback){
+    function getCacheOtherwise(key, callback) {
       // Initiate deferred
       var deferred = $q.defer();
       var data = cache.get(key);
 
-      if(data)
+      if (data)
         deferred.resolve(data);
       else
         callback && callback.call(this, deferred);
@@ -48,16 +47,16 @@
      * @param callback
      * @returns {*}
      */
-    function filterPromiseData(fn, callback){
+    function filterPromiseData(fn, callback) {
       var deferred = $q.defer();
 
       var promise = fn();
 
       promise
-        .then(function(data){
+        .then(function (data) {
           var filtered = callback.call({}, data);
           deferred.resolve(filtered);
-        }, function(data){
+        }, function (data) {
           deferred.reject(data);
         });
 
@@ -69,10 +68,10 @@
      * Gets all <%= cameledName %> and returns a promise
      * @returns Promise
      */
-    this.all = function(){
+    this.all = function () {
       var cacheKey = '<%= cameledName %>:all';
 
-      return getCacheOtherwise(cacheKey, function(deferred){
+      return getCacheOtherwise(cacheKey, function (deferred) {
         //get route for <%= scriptModuleName %>(s)
         var url = route(config.apiRoutes.<%= scriptModuleName %>);
 
@@ -92,7 +91,7 @@
      * @param Function callback
      * @returns Promise
      */
-    this.filter = function(callback){
+    this.filter = function (callback) {
       return filterPromiseData(this.all, callback);
     };
 
@@ -101,19 +100,19 @@
      * @param id
      * @returns {Promise}
      */
-    this.get = function(id){
-      return this.filter(function(data){
-        if(angular.isString(id)){
+    this.get = function (id) {
+      return this.filter(function (data) {
+        if (angular.isString(id)) {
           id = parseInt(id);
         }
-        return $filter('filter')(data, { 'id' : id}, true)[0];
+        return $filter('filter')(data, { 'id': id}, true)[0];
       });
     };
 
   }
 
   //Register the service
-  module.service('<%= classedName %>', ['$q', '$http', '$filter', '$cacheFactory', '<%= scriptModuleName %>Config', 'appConfig', service]);
+  module.service('<%= classedName %>', ['$q', '$http', '$filter', '$cacheFactory', '<%= scriptConfig %>', _service]);
 })();
 
 

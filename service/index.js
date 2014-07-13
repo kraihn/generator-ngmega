@@ -49,6 +49,8 @@ ServiceGenerator.prototype.files = function files() {
   var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
   this.scriptConfig = this.options.common ? 'appConfig' : this.scriptModuleName + "Config', 'appConfig";
 
+  this.checkForModule();
+
   // Module service
   this.template('service.js', path.join(destPath, 'services', this.name + '-service.js'));
 

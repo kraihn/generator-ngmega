@@ -49,6 +49,8 @@ DirectiveGenerator.prototype.files = function files() {
 
   var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
 
+  this.checkForModule();
+
   // Module service
   this.template('directive.js', path.join(destPath, 'directives', this.name + '-directive.js'));
 

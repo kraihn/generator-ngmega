@@ -1,6 +1,8 @@
 'use strict';
 var util = require('util');
 var path = require('path');
+var fs = require('fs');
+var chalk = require('chalk');
 var yeoman = require('yeoman-generator');
 
 var Generator = module.exports = function Generator() {
@@ -52,6 +54,14 @@ var Generator = module.exports = function Generator() {
   this.scriptSuffix = '.js';
 
   this.sourceRoot(path.join(__dirname, sourceRoot));
+
+  this.checkForModule = function() {
+    if(!this.options.common) {
+      if (!fs.existsSync(path.join(this.env.options.modulePath, this.scriptModuleName, '_module.js'))) {
+        this.log(chalk.bold.yellow("Warning: A module does not exist for the generated controller.  Please run 'yo ngmega:module " + this.scriptModuleName + "'"));
+      }
+    }
+  }
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);

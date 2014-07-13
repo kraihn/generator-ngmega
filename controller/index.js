@@ -49,6 +49,8 @@ ControllerGenerator.prototype.files = function files() {
 
   var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
 
+  this.checkForModule();
+
   // Module controller
   this.template('controller.js', path.join(destPath, 'controllers', this.name + '.js'));
 

@@ -12,7 +12,7 @@
    * Service Implementation
    * @param $scope
    */
-  function _service($q, $http, $filter, $cacheFactory, config, appConfig) {
+  function _service($q, $http, $filter, $cacheFactory, <%= scriptConfigVars %>) {
 
     var apiEndpoint = appConfig.apiEndpoint.replace(/\/$/, ''),
       cache = $cacheFactory('<%= cameledName %>');

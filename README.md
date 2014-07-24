@@ -1,46 +1,110 @@
 # generator-ngmega [![Build Status](https://secure.travis-ci.org/kraihn/generator-ngmega.png?branch=master)](https://travis-ci.org/kraihn/generator-ngmega)
 
-> [Yeoman](http://yeoman.io) generator
+An AngularJS generator based on a modular approach designed for mega teams.
 
+> Based on [generator-angular](https://github.com/yeoman/generator-angular)
 
-## Getting Started
+## Usage
 
-### What is Yeoman?
-
-Trick question. It's not a thing. It's this guy:
-
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
-
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
-
-```bash
-$ npm install -g yo
+Install `generator-ngmega`:
+```
+npm install -g generator-ngmega
 ```
 
-### Yeoman Generators
-
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
-
-To install generator-ngmega from npm, run:
-
-```bash
-$ npm install -g generator-ngmega
+Make a new directory, and `cd` into it:
+```
+mkdir my-new-project && cd $_
 ```
 
-Finally, initiate the generator:
+## Edge Usage
 
-```bash
-$ yo ngmega
+Clone `generator-ngmega`
+
+    git clone https://github.com/kraihn/generator-ngmega.git
+
+
+Checkout `develop`
+
+    cd generator-ngmega
+    git checkout develop
+
+Register with Node
+
+    npm link
+
+
+## Generators
+
+Available generators:
+
+* [ngmega:module](#module)
+* [ngmega:controller](#controller)
+* [ngmega:directive](#directive)
+* [ngmega:filter](#filter)
+* [ngmega:service](#service)
+
+**Note: Generators are to be run from the root directory of your app.**
+
+* The app/ folder described below can be overridden in bower.json -> bower.appPath
+* The */scripts/ folder described below can be overridden in bower.json -> bower.scriptPath
+
+An override example could be { appPath: 'src', scriptPath: 'app' } generating files in src/app/*
+
+### Module
+Generates a module in `app/scripts`.
+
+Example:
+```
+yo ngmega:module my-module
 ```
 
-### Getting To Know Yeoman
+Produces
 
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
+* `app/scripts/my-module/_module.js`
+* `app/scripts/my-module/my-module.config.js`
+* `app/scripts/my-module/my-module.routes.js`
+* `app/scripts/my-module/controllers/my-module.js`
+* `app/scripts/my-module/views/my-module.html`
 
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
+### Controller
+Generates a controller in `app/scripts/module/controllers`.
 
+Example:
+```
+yo ngmega:controller my-controller my-module
+```
+
+Produces `app/scripts/my-module/controllers/my-controller.js` and `app/scripts/my-module/views/my-controller.html`
+
+### Directive
+Generates a directive in `app/scripts/module/directives`.
+
+Example:
+```
+yo ngmega:directive my-directive my-module
+```
+
+Produces `app/scripts/my-module/directives/my-directive-directive.js`
+
+### Filter
+Generates a filter in `app/scripts/module/filters`.
+
+Example:
+```
+yo ngmega:filter my-filter my-module
+```
+
+Produces `app/scripts/my-module/filters/my-filter-filter.js`
+
+### Service
+Generates a service in `app/scripts/module/services`.
+
+Example:
+```
+yo ngmega:service my-service my-module
+```
+
+Produces `app/scripts/my-module/services/my-service-service.js`
 
 ## License
 

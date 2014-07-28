@@ -1,4 +1,4 @@
-(function(){
+(function () {
   'use strict';
 
   /**
@@ -13,12 +13,12 @@
    * Controller Implementation
    * @param $scope
    */
-  function _controller($scope, config){
+  function _controller($scope, config) {
 
     $scope.title = '<%= classedName %>';
 
   }
 
   //Register the controller
-  module.controller('<%= classedName %>Ctrl', ['$scope', '<%= scriptModuleName %>Config',  _controller]);
+  module.controller('<%= classedName %>Ctrl', ['$scope', '<%= scriptModuleName %>Config', _controller]);
 })();

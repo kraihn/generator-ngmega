@@ -11,7 +11,7 @@ var FilterGenerator = function ModuleGenerator(args, options, config) {
 util.inherits(FilterGenerator, MegaBase);
 
 FilterGenerator.prototype.init = function init() {
-  console.log('You called the filter subgenerator with the argument ' + this.name + '.');
+  this.log('You called the filter subgenerator with the argument ' + this.name + '.');
 
   // Assume second argument as module name
   this.scriptModuleName = this.arguments[1];
@@ -25,11 +25,14 @@ FilterGenerator.prototype.askFor = function askFor() {
   var prompts = [];
 
   if (!this.scriptModuleName) {
+
+    var defaultModuleName = this.options.common ? 'filters' : this.name;
+
     prompts.push(
       {
         name: 'moduleName',
         message: 'Enter your module name',
-        default: this.name
+        default: defaultModuleName
       });
   }
 
@@ -44,8 +47,12 @@ FilterGenerator.prototype.askFor = function askFor() {
 
 FilterGenerator.prototype.files = function files() {
 
+  var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
+
+  this.checkForModule();
+
   // Module service
-  this.template('filter.js', path.join(this.env.options.modulePath, this.scriptModuleName, 'filters', this.name + '-filter.js'));
+  this.template('filter.js', path.join(destPath, 'filters', this.name + '-filter.js'));
 
 };
 

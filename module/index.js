@@ -12,7 +12,7 @@ util.inherits(ModuleGenerator, MegaBase);
 
 
 ModuleGenerator.prototype.init = function init() {
-  console.log('You called the module subgenerator with the argument ' + this.name + '.');
+  this.log('You called the module subgenerator with the argument ' + this.name + '.');
 
   this.scriptModuleName = this.name;
   this.classedModuleName = this.classedName;

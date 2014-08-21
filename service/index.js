@@ -53,7 +53,7 @@ ServiceGenerator.prototype.files = function files() {
   this.checkForModule();
 
   // Module service
-  this.template((this.options.min ? 'service-min.js' : 'service.js'), path.join(destPath, 'services', this.name + '-service.js'));
+  this.templateAndReference((this.options.min ? 'service-min.js' : 'service.js'), path.join(destPath, 'services', this.name + '-service.js'));
 
 };
 

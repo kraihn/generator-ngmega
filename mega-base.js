@@ -4,6 +4,7 @@ var path = require('path');
 var fs = require('fs');
 var chalk = require('chalk');
 var yeoman = require('yeoman-generator');
+var angularUtils = require('./util.js');
 
 var Generator = module.exports = function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);

@@ -26,6 +26,10 @@ function rewrite (args) {
     }
   });
 
+  if (otherwiseLineIndex == 0 ){
+    return args.haystack;
+  }
+
   var spaces = 0;
   while (lines[otherwiseLineIndex].charAt(spaces) === ' ') {
     spaces += 1;

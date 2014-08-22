@@ -36,10 +36,48 @@ DirectiveGenerator.prototype.askFor = function askFor() {
       });
   }
 
+  prompts.push(
+    {
+      name: 'element',
+      message: 'Enter your element type',
+      default: 'div'
+    });
+
+  prompts.push(
+    {
+      type: 'checkbox',
+      name: 'directiveType',
+      message: 'Select your directive type(s)',
+      choices: [
+        {
+          name: "Element",
+          value: "E",
+          checked: true
+        },
+        {
+          name: "Attribute",
+          value: "A"
+        },
+        {
+          name: "Class",
+          value: "C"
+        }
+      ]
+    });
+
   this.prompt(prompts, function (props) {
+    var directiveType = '';
     if (!this.scriptModuleName) {
       this.scriptModuleName = props.moduleName;
     }
+    if(!this.element) {
+      this.element = props.element;
+    }
+
+    props.directiveType.forEach(function(value) {
+      directiveType += value;
+    });
+    this.directiveType = directiveType;
 
     cb();
   }.bind(this));

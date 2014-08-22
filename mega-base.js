@@ -100,6 +100,7 @@ Generator.prototype.addScriptToIndex = function (script) {
     angularUtils.rewriteFile({
       file: fullPath,
       needle: needleValue,
+      needleAfter: isModule ? (script.substring(0, script.indexOf('/')) + '.js') :'',
       splicable: spliceValue
     });
   } catch (e) {

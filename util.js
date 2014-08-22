@@ -19,9 +19,13 @@ function rewrite (args) {
 
   var lines = args.haystack.split('\n');
 
+  var beginIndexLine = -1;
   var otherwiseLineIndex = 0;
   lines.forEach(function (line, i) {
-    if (line.indexOf(args.needle) !== -1) {
+    if(beginIndexLine === -1 && line.indexOf(args.needleAfter) !== -1) {
+      beginIndexLine = i;
+    }
+    if (beginIndexLine > -1 && otherwiseLineIndex == 0 && line.indexOf(args.needle) !== -1) {
       otherwiseLineIndex = i;
     }
   });
@@ -48,6 +52,8 @@ function rewrite (args) {
 }
 
 function rewriteFile (args) {
+  args.needleAfter = args.needleAfter || '';
+
   args.path = args.path || process.cwd();
   var fullPath = path.join(args.path, args.file);
 

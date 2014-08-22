@@ -4,21 +4,21 @@ var path = require('path');
 var MegaBase = require('../mega-base.js');
 
 
-var ControllerGenerator = function ModuleGenerator(args, options, config) {
+var ResourceGenerator = function Generator(args, options, config) {
   MegaBase.apply(this, arguments);
 };
 
-util.inherits(ControllerGenerator, MegaBase);
+util.inherits(ResourceGenerator, MegaBase);
 
-ControllerGenerator.prototype.init = function init() {
-  this.log('You called the controller subgenerator with the argument ' + this.name + '.');
+ResourceGenerator.prototype.init = function init() {
+  this.log('You called the resource subgenerator with the argument ' + this.name + '.');
 
   // Assume second argument as module name
   this.scriptModuleName = this.arguments[1];
 
 };
 
-ControllerGenerator.prototype.askFor = function askFor() {
+ResourceGenerator.prototype.askFor = function askFor() {
 
   var cb = this.async();
 
@@ -26,7 +26,7 @@ ControllerGenerator.prototype.askFor = function askFor() {
 
   if (!this.scriptModuleName) {
 
-    var defaultModuleName = this.options.common ? 'controllers' : this.name;
+    var defaultModuleName = this.options.common ? 'services' : this.name;
 
     prompts.push(
       {
@@ -45,18 +45,17 @@ ControllerGenerator.prototype.askFor = function askFor() {
   }.bind(this));
 };
 
-ControllerGenerator.prototype.files = function files() {
+ResourceGenerator.prototype.files = function files() {
 
   var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
+  this.scriptConfig = this.options.common ? 'appConfig' : this.scriptModuleName + "Config', 'appConfig";
+  this.scriptConfigVars = this.options.common ? 'appConfig' : "config, appConfig";
 
   this.checkForModule();
 
-  // Module controller
-  this.templateAndReference('controller.js', path.join(destPath, 'controllers', this.name + '.js'));
-
-  // Module view
-  this.template('partial.html', path.join(destPath, 'views', this.name + '.html'));
+  // Module service
+  this.templateAndReference('resource.js', path.join(destPath, 'services', this.name + '-resource.js'));
 
 };
 
-module.exports = ControllerGenerator;
+module.exports = ResourceGenerator;

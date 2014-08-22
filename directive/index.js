@@ -52,7 +52,7 @@ DirectiveGenerator.prototype.files = function files() {
   this.checkForModule();
 
   // Module service
-  this.template('directive.js', path.join(destPath, 'directives', this.name + '-directive.js'));
+  this.templateAndReference('directive.js', path.join(destPath, 'directives', this.name + '-directive.js'));
 
 };
 

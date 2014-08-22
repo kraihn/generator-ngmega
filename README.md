@@ -41,6 +41,7 @@ Available generators:
 * [ngmega:controller](#controller)
 * [ngmega:directive](#directive)
 * [ngmega:filter](#filter)
+* [ngmega:resource](#resource)
 * [ngmega:service](#service)
 
 **Note: Generators are to be run from the root directory of your app.**
@@ -65,6 +66,13 @@ Produces
 * `app/scripts/my-module/my-module.routes.js`
 * `app/scripts/my-module/controllers/my-module.js`
 * `app/scripts/my-module/views/my-module.html`
+
+Options
+
+- --all : Additionally generates a resource
+- --bare : Controller and view is not generated
+- --with-resource : Additionally generates a resource
+- --with-service : Additionally generates a service
 
 ### Controller
 Generates a controller in `app/scripts/module/controllers`.
@@ -95,6 +103,16 @@ yo ngmega:filter my-filter my-module
 ```
 
 Produces `app/scripts/my-module/filters/my-filter-filter.js`
+
+### Resource
+Generates a resource in `app/scripts/module/services`.
+
+Example:
+```
+yo ngmega:resource my-resource my-module
+```
+
+Produces `app/scripts/my-module/services/my-service-resource.js`
 
 ### Service
 Generates a service in `app/scripts/module/services`.

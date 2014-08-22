@@ -4,6 +4,7 @@ var path = require('path');
 var fs = require('fs');
 var chalk = require('chalk');
 var yeoman = require('yeoman-generator');
+var angularUtils = require('./util.js');
 
 var Generator = module.exports = function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
@@ -46,6 +47,14 @@ var Generator = module.exports = function Generator() {
     this.env.options.testPath = bower.testPath || 'test/spec';
   }
 
+  if (!this.options.all) {
+    this.options.all = this.options.a || false;
+  }
+
+  if (!this.options.bare) {
+    this.options.bare = this.options.b || false;
+  }
+
   if (!this.options.common) {
     this.options.common = this.options.c || false;
   }
@@ -55,8 +64,8 @@ var Generator = module.exports = function Generator() {
 
   this.sourceRoot(path.join(__dirname, sourceRoot));
 
-  this.checkForModule = function() {
-    if(!this.options.common) {
+  this.checkForModule = function () {
+    if (!this.options.common) {
       if (!fs.existsSync(path.join(this.env.options.modulePath, this.scriptModuleName, '_module.js'))) {
         this.log(chalk.bold.yellow("Warning: A module does not exist for the generated controller.  Please run 'yo ngmega:module " + this.scriptModuleName + "'"));
       }
@@ -65,3 +74,42 @@ var Generator = module.exports = function Generator() {
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);
+
+Generator.prototype.addScriptToIndex = function (script) {
+  if (!this.classedModuleName) {
+    this.classedModuleName = this._.classify(this.scriptModuleName);
+  }
+  var isModule = script.substring(script.lastIndexOf('/') + 1) === '_module.js' ? true : false;
+  var spliceValue = [];
+  var beginModule = '<!-- module:' + this.classedModuleName + ' -->';
+  var endModule = '<!-- endmodule:' + this.classedModuleName + ' -->';
+
+  var needleValue = isModule ? '<!-- endbuild -->' : endModule;
+  if (isModule == true) {
+    spliceValue.push(beginModule);
+    spliceValue.push('<script src="' + script.toLowerCase().replace(/\\/g, '/') + '"></script>');
+    spliceValue.push(endModule);
+  }
+  else {
+    spliceValue.push('<script src="' + script.toLowerCase().replace(/\\/g, '/') + '"></script>');
+  }
+
+  try {
+    var appPath = this.env.options.appPath;
+    var fullPath = path.join(appPath, 'index.html');
+    angularUtils.rewriteFile({
+      file: fullPath,
+      needle: needleValue,
+      splicable: spliceValue
+    });
+  } catch (e) {
+    this.log.error(chalk.yellow(
+        '\nUnable to find ' + fullPath + '. Reference to ' + script + ' not added.\n'
+    ));
+  }
+};
+
+Generator.prototype.templateAndReference = function (template, script) {
+  this.template(template, script);
+  this.addScriptToIndex(script.substring(script.indexOf('/') + 1));
+};

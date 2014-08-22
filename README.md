@@ -41,6 +41,7 @@ Available generators:
 * [ngmega:controller](#controller)
 * [ngmega:directive](#directive)
 * [ngmega:filter](#filter)
+* [ngmega:resource](#resource)
 * [ngmega:service](#service)
 
 **Note: Generators are to be run from the root directory of your app.**
@@ -95,6 +96,16 @@ yo ngmega:filter my-filter my-module
 ```
 
 Produces `app/scripts/my-module/filters/my-filter-filter.js`
+
+### Resource
+Generates a resource in `app/scripts/module/services`.
+
+Example:
+```
+yo ngmega:resource my-resource my-module
+```
+
+Produces `app/scripts/my-module/services/my-service-resource.js`
 
 ### Service
 Generates a service in `app/scripts/module/services`.

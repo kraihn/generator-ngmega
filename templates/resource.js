@@ -32,8 +32,6 @@
         return $resource(url).get({ id: id });
       };
 
-      }
-
     }
 
   //Register the service

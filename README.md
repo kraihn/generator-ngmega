@@ -67,6 +67,13 @@ Produces
 * `app/scripts/my-module/controllers/my-module.js`
 * `app/scripts/my-module/views/my-module.html`
 
+Options
+
+- --all : Additionally generates a resource
+- --bare : Controller and view is not generated
+- --with-resource : Additionally generates a resource
+- --with-service : Additionally generates a service
+
 ### Controller
 Generates a controller in `app/scripts/module/controllers`.
 

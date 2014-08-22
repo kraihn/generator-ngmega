@@ -47,6 +47,14 @@ var Generator = module.exports = function Generator() {
     this.env.options.testPath = bower.testPath || 'test/spec';
   }
 
+  if (!this.options.all) {
+    this.options.all = this.options.a || false;
+  }
+
+  if (!this.options.bare) {
+    this.options.bare = this.options.b || false;
+  }
+
   if (!this.options.common) {
     this.options.common = this.options.c || false;
   }

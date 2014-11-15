@@ -3,7 +3,7 @@
 var path = require('path');
 var helpers = require('yeoman-generator').test;
 
-describe('ngmega:controller', function () {
+describe('ngmega:filter', function () {
 
   describe('common tests', function () {
 
@@ -14,8 +14,8 @@ describe('ngmega:controller', function () {
             return done(err);
           }
 
-          this.app = helpers.createGenerator('ngmega:controller', [
-            '../../controller'
+          this.app = helpers.createGenerator('ngmega:filter', [
+            '../../filter'
           ], ['hello'], {'common': true});
           done();
         }.bind(this));
@@ -23,8 +23,7 @@ describe('ngmega:controller', function () {
 
       it('creates expected files', function (done) {
         var expected = [
-          'app/common/controllers/hello.js',
-          'app/common/views/hello.html'
+          'app/common/filters/hello-filter.js'
         ];
 
         helpers.mockPrompt(this.app, {
@@ -45,8 +44,8 @@ describe('ngmega:controller', function () {
             return done(err);
           }
 
-          this.app = helpers.createGenerator('ngmega:controller', [
-            '../../controller'
+          this.app = helpers.createGenerator('ngmega:filter', [
+            '../../filter'
           ], ['hello-world'], {'common': true});
           done();
         }.bind(this));
@@ -54,8 +53,7 @@ describe('ngmega:controller', function () {
 
       it('creates expected files', function (done) {
         var expected = [
-          'app/common/controllers/hello-world.js',
-          'app/common/views/hello-world.html'
+          'app/common/filters/hello-world-filter.js'
         ];
 
         helpers.mockPrompt(this.app, {
@@ -79,8 +77,8 @@ describe('ngmega:controller', function () {
             return done(err);
           }
 
-          this.app = helpers.createGenerator('ngmega:controller', [
-            '../../controller'
+          this.app = helpers.createGenerator('ngmega:filter', [
+            '../../filter'
           ], ['hello', 'there']);
           done();
         }.bind(this));
@@ -88,8 +86,7 @@ describe('ngmega:controller', function () {
 
       it('creates expected files', function (done) {
         var expected = [
-          'app/scripts/there/controllers/hello.js',
-          'app/scripts/there/views/hello.html'
+          'app/scripts/there/filters/hello-filter.js'
         ];
 
         helpers.mockPrompt(this.app, {
@@ -110,8 +107,8 @@ describe('ngmega:controller', function () {
             return done(err);
           }
 
-          this.app = helpers.createGenerator('ngmega:controller', [
-            '../../controller'
+          this.app = helpers.createGenerator('ngmega:filter', [
+            '../../filter'
           ], ['hello-world', 'here-there']);
           done();
         }.bind(this));
@@ -119,8 +116,7 @@ describe('ngmega:controller', function () {
 
       it('creates expected files', function (done) {
         var expected = [
-          'app/scripts/here-there/controllers/hello-world.js',
-          'app/scripts/here-there/views/hello-world.html'
+          'app/scripts/here-there/filters/hello-world-filter.js'
         ];
 
         helpers.mockPrompt(this.app, {

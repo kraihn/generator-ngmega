@@ -54,7 +54,7 @@ ResourceGenerator.prototype.files = function files() {
   this.checkForModule();
 
   // Module service
-  this.templateAndReference('resource.js', path.join(destPath, 'services', this.name + '-resource.js'));
+  this.templateAndReference('resource.js', path.join(destPath, 'services', this.dasherizedName + '-resource.js'));
 
 };
 

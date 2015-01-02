@@ -52,7 +52,7 @@ FilterGenerator.prototype.files = function files() {
   this.checkForModule();
 
   // Module service
-  this.templateAndReference('filter.js', path.join(destPath, 'filters', this.name + '-filter.js'));
+  this.templateAndReference('filter.js', path.join(destPath, 'filters', this.dasherizedName + '-filter.js'));
 
 };
 

@@ -8,6 +8,7 @@ var angularUtils = require('./util.js');
 
 var Generator = module.exports = function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
+  this.config.save();
 
   var bower;
   try {
@@ -24,6 +25,7 @@ var Generator = module.exports = function Generator() {
 
   this.cameledName = this._.camelize(this.name);
   this.classedName = this._.classify(this.name);
+  this.dasherizedName = this._.dasherize(this.name);
 
   if (typeof this.env.options.appPath === 'undefined') {
     this.env.options.appPath = bower.appPath || 'app';
@@ -67,7 +69,7 @@ var Generator = module.exports = function Generator() {
   this.checkForModule = function () {
     if (!this.options.common) {
       if (!fs.existsSync(path.join(this.env.options.modulePath, this.scriptModuleName, '_module.js'))) {
-        this.log(chalk.bold.yellow("Warning: A module does not exist for the generated controller.  Please run 'yo ngmega:module " + this.scriptModuleName + "'"));
+        this.log(chalk.bold.yellow("Warning: A module does not exist for the generated file(s).  Please run 'yo ngmega:module " + this.scriptModuleName + "'"));
       }
     }
   }
@@ -100,12 +102,12 @@ Generator.prototype.addScriptToIndex = function (script) {
     angularUtils.rewriteFile({
       file: fullPath,
       needle: needleValue,
-      needleAfter: isModule ? (script.substring(0, script.indexOf('/')) + '.js') :'',
+      needleAfter: isModule ? (script.substring(0, script.indexOf('/')) + '.js') : '',
       splicable: spliceValue
     });
   } catch (e) {
     this.log.error(chalk.yellow(
-        '\nUnable to find ' + fullPath + '. Reference to ' + script + ' not added.\n'
+      '\nUnable to find ' + fullPath + '. Reference to ' + script + ' not added.\n'
     ));
   }
 };

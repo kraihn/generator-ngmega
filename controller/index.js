@@ -52,10 +52,10 @@ ControllerGenerator.prototype.files = function files() {
   this.checkForModule();
 
   // Module controller
-  this.templateAndReference('controller.js', path.join(destPath, 'controllers', this.name + '.js'));
+  this.templateAndReference('controller.js', path.join(destPath, 'controllers', this.dasherizedName + '.js'));
 
   // Module view
-  this.template('partial.html', path.join(destPath, 'views', this.name + '.html'));
+  this.template('partial.html', path.join(destPath, 'views', this.dasherizedName + '.html'));
 
 };
 

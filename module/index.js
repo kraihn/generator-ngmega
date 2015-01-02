@@ -16,7 +16,7 @@ ModuleGenerator.prototype.init = function init() {
 
   this.scriptModuleName = this.cameledName;
   this.classedModuleName = this.classedName;
-
+  this.setModuleName(this._.dasherize(this.name));
 };
 
 ModuleGenerator.prototype.files = function files() {

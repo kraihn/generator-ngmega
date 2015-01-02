@@ -5,7 +5,7 @@
    * Initialize module for dashboard
    * @type {*|module}
    */
-  var module = angular.module('<%= scriptModuleName %>'),
+  var module = angular.module('<%= moduleCameledName %>'),
     app = angular.module('<%= scriptAppName %>');
 
 
@@ -15,10 +15,10 @@
    */
   function _controller($scope, config) {
 
-    $scope.title = '<%= classedName %>';
+    $scope.title = '<%= titledName %>';
 
   }
 
   //Register the controller
-  module.controller('<%= classedName %>Ctrl', ['$scope', '<%= scriptModuleName %>Config', _controller]);
+  module.controller('<%= classedName %>Ctrl', ['$scope', '<%= moduleCameledName %>Config', _controller]);
 })();

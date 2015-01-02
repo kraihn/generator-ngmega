@@ -14,8 +14,8 @@ FilterGenerator.prototype.init = function init() {
   this.log('You called the filter subgenerator with the argument ' + this.name + '.');
 
   // Assume second argument as module name
-  this.scriptModuleName = this.arguments[1];
-
+  this.scriptModuleName = this._.camelize(this.arguments[1]);
+  this.setModuleName(this._.dasherize(this.arguments[1]));
 };
 
 FilterGenerator.prototype.askFor = function askFor() {
@@ -26,7 +26,7 @@ FilterGenerator.prototype.askFor = function askFor() {
 
   if (!this.scriptModuleName) {
 
-    var defaultModuleName = this.options.common ? 'filters' : this.name;
+    var defaultModuleName = this.options.common ? 'filters' : this._.dasherize(this.name);
 
     prompts.push(
       {
@@ -38,7 +38,8 @@ FilterGenerator.prototype.askFor = function askFor() {
 
   this.prompt(prompts, function (props) {
     if (!this.scriptModuleName) {
-      this.scriptModuleName = props.moduleName;
+      this.scriptModuleName = this._.camelize(props.moduleName);
+      this.setModuleName(this._.dasherize(props.moduleName));
     }
 
     cb();
@@ -47,7 +48,7 @@ FilterGenerator.prototype.askFor = function askFor() {
 
 FilterGenerator.prototype.files = function files() {
 
-  var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
+  var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.moduleDasherizedName);
 
   this.checkForModule();
 

@@ -8,7 +8,6 @@ var angularUtils = require('./util.js');
 
 var Generator = module.exports = function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
-  this.config.save();
 
   var bower;
   try {
@@ -23,10 +22,12 @@ var Generator = module.exports = function Generator() {
 
   this.scriptAppName = bower.appName || this._.camelize(this.appname) + 'App';
 
+  this.name = this._.dasherize(this.name);
   this.cameledName = this._.camelize(this.name);
   this.classedName = this._.classify(this.name);
   this.dasherizedName = this._.dasherize(this.name);
-
+  this.titledName = this._.titleize(this.name);
+  
   if (typeof this.env.options.appPath === 'undefined') {
     this.env.options.appPath = bower.appPath || 'app';
     this.options.appPath = this.env.options.appPath;
@@ -78,9 +79,11 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, yeoman.generators.NamedBase);
 
 Generator.prototype.addScriptToIndex = function (script) {
+  console.log(this.classedModuleName);
   if (!this.classedModuleName) {
     this.classedModuleName = this._.classify(this.scriptModuleName);
   }
+  console.log(this.classedModuleName);
   var isModule = script.substring(script.lastIndexOf('/') + 1) === '_module.js' ? true : false;
   var spliceValue = [];
   var beginModule = '<!-- module:' + this.classedModuleName + ' -->';
@@ -115,4 +118,11 @@ Generator.prototype.addScriptToIndex = function (script) {
 Generator.prototype.templateAndReference = function (template, script) {
   this.template(template, script);
   this.addScriptToIndex(script.substring(script.indexOf('/') + 1));
+};
+
+Generator.prototype.setModuleName = function (name) {
+  this.moduleCameledName = this._.camelize(name);
+  this.moduleClassedName = this._.classify(name);
+  this.moduleDasherizedName = this._.dasherize(name);
+  this.moduleTitledName = this._.titleize(name);
 };

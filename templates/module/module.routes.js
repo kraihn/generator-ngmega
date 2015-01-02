@@ -14,9 +14,9 @@
    */
   function _routeConfiguration($routeProvider) {
     $routeProvider
-      .when('/<%= scriptModuleName %>', {
-        templateUrl: 'app/<%= scriptModuleName %>/views/<%= scriptModuleName %>.html',
-        controller: '<%= classedModuleName %>Ctrl'
+      .when('/<%= moduleDasherizedName %>', {
+        templateUrl: 'app/<%= moduleDasherizedName %>/views/<%= moduleDasherizedName %>.html',
+        controller: '<%= moduleClassedName %>Ctrl'
       });
   }
 

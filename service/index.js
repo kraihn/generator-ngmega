@@ -14,7 +14,8 @@ ServiceGenerator.prototype.init = function init() {
   this.log('You called the service subgenerator with the argument ' + this.name + '.');
 
   // Assume second argument as module name
-  this.scriptModuleName = this.arguments[1];
+  this.scriptModuleName = this._.camelize(this.arguments[1]);
+  this.setModuleName(this._.dasherize(this.arguments[1]));
 };
 
 ServiceGenerator.prototype.askFor = function askFor() {
@@ -25,7 +26,7 @@ ServiceGenerator.prototype.askFor = function askFor() {
 
   if (!this.scriptModuleName) {
 
-    var defaultModuleName = this.options.common ? 'services' : this.name;
+    var defaultModuleName = this.options.common ? 'services' : this._.dasherize(this.name);
 
     prompts.push(
       {
@@ -37,7 +38,8 @@ ServiceGenerator.prototype.askFor = function askFor() {
 
   this.prompt(prompts, function (props) {
     if (!this.scriptModuleName) {
-      this.scriptModuleName = props.moduleName;
+      this.scriptModuleName = this._.camelize(props.moduleName);
+      this.setModuleName(this._.dasherize(props.moduleName));
     }
 
     cb();
@@ -46,7 +48,7 @@ ServiceGenerator.prototype.askFor = function askFor() {
 
 ServiceGenerator.prototype.files = function files() {
 
-  var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
+  var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.moduleDasherizedName);
   this.scriptConfig = this.options.common ? 'appConfig' : this.scriptModuleName + "Config', 'appConfig";
   this.scriptConfigVars = this.options.common ? 'appConfig' : "config, appConfig";
 

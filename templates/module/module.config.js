@@ -1,4 +1,4 @@
-angular.module('<%= scriptModuleName %>')
-  .constant('<%= scriptModuleName %>Config',{
+angular.module('<%= moduleCameledName %>')
+  .constant('<%= moduleCameledName %>Config',{
 
   });

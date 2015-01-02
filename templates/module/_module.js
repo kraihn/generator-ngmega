@@ -1,4 +1,4 @@
-angular.module('<%= scriptModuleName %>', [
+angular.module('<%= moduleCameledName %>', [
   'services',
   'filters'
 ]);

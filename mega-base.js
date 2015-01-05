@@ -20,10 +20,16 @@ var Generator = module.exports = function Generator() {
   this.appname = bower.name || path.basename(process.cwd());
   this.appname = this._.slugify(this._.humanize(this.appname));
 
-  this.scriptAppName = bower.appName || this._.camelize(this.appname) + 'App';
+  this.appName = bower.appName || this._.camelize(this.appname) + 'App';
 
+  this.name = this._.dasherize(this.name);
+  if (this.name[0] === '-')
+    this.name = this.name.substring(1);
   this.cameledName = this._.camelize(this.name);
   this.classedName = this._.classify(this.name);
+  this.dasherizedName = this._.dasherize(this.name);
+  this.titledName = this._.titleize(this.name);
+  this.titledSpacedName = this.titledName.replace(/-/g, ' ');
 
   if (typeof this.env.options.appPath === 'undefined') {
     this.env.options.appPath = bower.appPath || 'app';
@@ -67,7 +73,7 @@ var Generator = module.exports = function Generator() {
   this.checkForModule = function () {
     if (!this.options.common) {
       if (!fs.existsSync(path.join(this.env.options.modulePath, this.scriptModuleName, '_module.js'))) {
-        this.log(chalk.bold.yellow("Warning: A module does not exist for the generated controller.  Please run 'yo ngmega:module " + this.scriptModuleName + "'"));
+        this.log(chalk.bold.yellow("Warning: A module does not exist for the generated file(s).  Please run 'yo ngmega:module " + this.scriptModuleName + "'"));
       }
     }
   }
@@ -76,13 +82,13 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, yeoman.generators.NamedBase);
 
 Generator.prototype.addScriptToIndex = function (script) {
-  if (!this.classedModuleName) {
-    this.classedModuleName = this._.classify(this.scriptModuleName);
+  if (!this.moduleClassedName) {
+    this.moduleClassedName = this._.classify(this.scriptModuleName);
   }
   var isModule = script.substring(script.lastIndexOf('/') + 1) === '_module.js' ? true : false;
   var spliceValue = [];
-  var beginModule = '<!-- module:' + this.classedModuleName + ' -->';
-  var endModule = '<!-- endmodule:' + this.classedModuleName + ' -->';
+  var beginModule = '<!-- module:' + this.moduleClassedName + ' -->';
+  var endModule = '<!-- endmodule:' + this.moduleClassedName + ' -->';
 
   var needleValue = isModule ? '<!-- endbuild -->' : endModule;
   if (isModule == true) {
@@ -100,17 +106,51 @@ Generator.prototype.addScriptToIndex = function (script) {
     angularUtils.rewriteFile({
       file: fullPath,
       needle: needleValue,
-      needleAfter: isModule ? (script.substring(0, script.indexOf('/')) + '.js') :'',
+      needleAfter: isModule ? (script.substring(0, script.indexOf('/')) + '.js') : '',
       splicable: spliceValue
     });
   } catch (e) {
     this.log.error(chalk.yellow(
-        '\nUnable to find ' + fullPath + '. Reference to ' + script + ' not added.\n'
+      '\nUnable to find ' + fullPath + '. Reference to ' + script + ' not added.\n'
     ));
   }
 };
 
+Generator.prototype.addScriptToAppJS = function (script) {
+  var isModule = script.substring(script.lastIndexOf('/') + 1) === '_module.js' ? true : false;
+  if (isModule) {
+    var spliceValue = [];
+    spliceValue.push('\t, \'' + this.moduleCameledName + '\'');
+
+    try {
+      var fullPath = path.join(this.env.options.appPath, this.options.scriptPath, 'app.js');
+      console.log(fullPath);
+      angularUtils.rewriteFile({
+        file: fullPath,
+        needle: ']);',
+        needleAfter: '\'' + this.appName + '\', [',
+        splicable: spliceValue
+      });
+    } catch (e) {
+      this.log.error(chalk.yellow(
+        '\nUnable to find ' + fullPath + '. Reference to ' + this.moduleCameledName + ' not added.\n'
+      ));
+    }
+  }
+}
+;
+
 Generator.prototype.templateAndReference = function (template, script) {
   this.template(template, script);
   this.addScriptToIndex(script.substring(script.indexOf('/') + 1));
+  this.addScriptToAppJS(script.substring(script.indexOf('/') + 1));
+};
+
+Generator.prototype.setModuleName = function (name) {
+  if (name[0] === '-')
+    name = name.substring(1);
+  this.moduleCameledName = this._.camelize(name);
+  this.moduleClassedName = this._.classify(name);
+  this.moduleDasherizedName = this._.dasherize(name);
+  this.moduleTitledName = this._.titleize(name);
 };

@@ -5,7 +5,7 @@
    * Get module for the app
    * @type {*|module}
    */
-  var app = angular.module('<%= scriptAppName %>');
+  var app = angular.module('<%= appName %>');
 
   /**
    * route config implementation
@@ -14,9 +14,9 @@
    */
   function _routeConfiguration($routeProvider) {
     $routeProvider
-      .when('/<%= scriptModuleName %>', {
-        templateUrl: 'app/<%= scriptModuleName %>/views/<%= scriptModuleName %>.html',
-        controller: '<%= classedModuleName %>Ctrl'
+      .when('/<%= moduleDasherizedName %>', {
+        templateUrl: 'app/<%= moduleDasherizedName %>/views/<%= moduleDasherizedName %>.html',
+        controller: '<%= moduleClassedName %>Ctrl'
       });
   }
 

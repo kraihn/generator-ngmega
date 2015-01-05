@@ -5,7 +5,7 @@
    * Get module for the app
    * @type {*|module}
    */
-  var app = angular.module('<%= scriptAppName %>');
+  var app = angular.module('<%= appName %>');
 
   /**
    * route config implementation

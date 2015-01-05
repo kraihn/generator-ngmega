@@ -5,8 +5,8 @@
    * Initialize module for dashboard
    * @type {*|module}
    */
-  var module = angular.module('<%= scriptModuleName %>'),
-    app = angular.module('<%= scriptAppName %>');
+  var module = angular.module('<%= moduleCameledName %>'),
+    app = angular.module('<%= appName %>');
 
   /**
    * Service Implementation

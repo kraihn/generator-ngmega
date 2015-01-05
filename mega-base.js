@@ -23,6 +23,8 @@ var Generator = module.exports = function Generator() {
   this.appName = bower.appName || this._.camelize(this.appname) + 'App';
 
   this.name = this._.dasherize(this.name);
+  if(this.name[0] === '-')
+   this.name = this.name.substring(1);
   this.cameledName = this._.camelize(this.name);
   this.classedName = this._.classify(this.name);
   this.dasherizedName = this._.dasherize(this.name);
@@ -120,6 +122,8 @@ Generator.prototype.templateAndReference = function (template, script) {
 };
 
 Generator.prototype.setModuleName = function (name) {
+  if(name[0] === '-')
+    name = name.substring(1);
   this.moduleCameledName = this._.camelize(name);
   this.moduleClassedName = this._.classify(name);
   this.moduleDasherizedName = this._.dasherize(name);

@@ -33,11 +33,11 @@
   ],
   "dependencies": {
     "chalk": "^0.4.0",
-    "yeoman-generator": "~0.16.0",
+    "yeoman-generator": "^0.16.0",
     "yosay": "^0.1.0"
   },
   "devDependencies": {
-    "mocha": "*",
+    "mocha": "^1.21.4",
     "underscore.string": "^2.3.3"
   },
   "peerDependencies": {

@@ -14,7 +14,8 @@ ControllerGenerator.prototype.init = function init() {
   this.log('You called the controller subgenerator with the argument ' + this.name + '.');
 
   // Assume second argument as module name
-  this.scriptModuleName = this.arguments[1];
+  this.scriptModuleName = this._.camelize(this.arguments[1]);
+  this.setModuleName(this._.dasherize(this.arguments[1]));
 
 };
 
@@ -26,7 +27,7 @@ ControllerGenerator.prototype.askFor = function askFor() {
 
   if (!this.scriptModuleName) {
 
-    var defaultModuleName = this.options.common ? 'controllers' : this.name;
+    var defaultModuleName = this.options.common ? 'controllers' : this._.dasherize(this.name);
 
     prompts.push(
       {
@@ -38,7 +39,8 @@ ControllerGenerator.prototype.askFor = function askFor() {
 
   this.prompt(prompts, function (props) {
     if (!this.scriptModuleName) {
-      this.scriptModuleName = props.moduleName;
+      this.scriptModuleName = this._.camelize(props.moduleName);
+      this.setModuleName(this._.dasherize(props.moduleName));
     }
 
     cb();
@@ -47,15 +49,15 @@ ControllerGenerator.prototype.askFor = function askFor() {
 
 ControllerGenerator.prototype.files = function files() {
 
-  var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.scriptModuleName);
+  var destPath = this.options.common ? this.env.options.commonPath : path.join(this.env.options.modulePath, this.moduleDasherizedName);
 
   this.checkForModule();
 
   // Module controller
-  this.templateAndReference('controller.js', path.join(destPath, 'controllers', this.name + '.js'));
+  this.templateAndReference('controller.js', path.join(destPath, 'controllers', this.dasherizedName + '.js'));
 
   // Module view
-  this.template('partial.html', path.join(destPath, 'views', this.name + '.html'));
+  this.template('partial.html', path.join(destPath, 'views', this.dasherizedName + '.html'));
 
 };
 

@@ -82,13 +82,13 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, yeoman.generators.NamedBase);
 
 Generator.prototype.addScriptToIndex = function (script) {
-  if (!this.classedModuleName) {
-    this.classedModuleName = this._.classify(this.scriptModuleName);
+  if (!this.moduleClassedName) {
+    this.moduleClassedName = this._.classify(this.scriptModuleName);
   }
   var isModule = script.substring(script.lastIndexOf('/') + 1) === '_module.js' ? true : false;
   var spliceValue = [];
-  var beginModule = '<!-- module:' + this.classedModuleName + ' -->';
-  var endModule = '<!-- endmodule:' + this.classedModuleName + ' -->';
+  var beginModule = '<!-- module:' + this.moduleClassedName + ' -->';
+  var endModule = '<!-- endmodule:' + this.moduleClassedName + ' -->';
 
   var needleValue = isModule ? '<!-- endbuild -->' : endModule;
   if (isModule == true) {

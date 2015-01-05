@@ -20,14 +20,14 @@ var Generator = module.exports = function Generator() {
   this.appname = bower.name || path.basename(process.cwd());
   this.appname = this._.slugify(this._.humanize(this.appname));
 
-  this.scriptAppName = bower.appName || this._.camelize(this.appname) + 'App';
+  this.appName = bower.appName || this._.camelize(this.appname) + 'App';
 
   this.name = this._.dasherize(this.name);
   this.cameledName = this._.camelize(this.name);
   this.classedName = this._.classify(this.name);
   this.dasherizedName = this._.dasherize(this.name);
   this.titledName = this._.titleize(this.name);
-  
+
   if (typeof this.env.options.appPath === 'undefined') {
     this.env.options.appPath = bower.appPath || 'app';
     this.options.appPath = this.env.options.appPath;

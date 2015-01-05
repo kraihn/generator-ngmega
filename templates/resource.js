@@ -6,7 +6,7 @@
    * @type {*|module}
    */
   var module = angular.module('<%= moduleCameledName %>'),
-    app = angular.module('<%= scriptAppName %>');
+    app = angular.module('<%= appName %>');
 
   /**
    * Service Implementation

@@ -23,8 +23,8 @@ var Generator = module.exports = function Generator() {
   this.appName = bower.appName || this._.camelize(this.appname) + 'App';
 
   this.name = this._.dasherize(this.name);
-  if(this.name[0] === '-')
-   this.name = this.name.substring(1);
+  if (this.name[0] === '-')
+    this.name = this.name.substring(1);
   this.cameledName = this._.camelize(this.name);
   this.classedName = this._.classify(this.name);
   this.dasherizedName = this._.dasherize(this.name);
@@ -116,13 +116,38 @@ Generator.prototype.addScriptToIndex = function (script) {
   }
 };
 
+Generator.prototype.addScriptToAppJS = function (script) {
+  var isModule = script.substring(script.lastIndexOf('/') + 1) === '_module.js' ? true : false;
+  if (isModule) {
+    var spliceValue = [];
+    spliceValue.push('\t, \'' + this.moduleCameledName + '\'');
+
+    try {
+      var fullPath = path.join(this.env.options.appPath, this.options.scriptPath, 'app.js');
+      console.log(fullPath);
+      angularUtils.rewriteFile({
+        file: fullPath,
+        needle: ']);',
+        needleAfter: '\'' + this.appName + '\', [',
+        splicable: spliceValue
+      });
+    } catch (e) {
+      this.log.error(chalk.yellow(
+        '\nUnable to find ' + fullPath + '. Reference to ' + this.moduleCameledName + ' not added.\n'
+      ));
+    }
+  }
+}
+;
+
 Generator.prototype.templateAndReference = function (template, script) {
   this.template(template, script);
   this.addScriptToIndex(script.substring(script.indexOf('/') + 1));
+  this.addScriptToAppJS(script.substring(script.indexOf('/') + 1));
 };
 
 Generator.prototype.setModuleName = function (name) {
-  if(name[0] === '-')
+  if (name[0] === '-')
     name = name.substring(1);
   this.moduleCameledName = this._.camelize(name);
   this.moduleClassedName = this._.classify(name);

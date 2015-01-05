@@ -1,13 +1,13 @@
 {
   "name": "generator-ngmega",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Yeoman generator for mega sized teams",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "kraihn/generator-ngmega",
   "author": {
     "name": "Jared Dickson",
-    "email": "kraihn@gmail.com",
+    "email": "code@jareddickson.com",
     "url": "https://github.com/kraihn"
   },
   "engines": {

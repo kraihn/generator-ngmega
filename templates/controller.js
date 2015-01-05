@@ -15,7 +15,7 @@
    */
   function _controller($scope, config) {
 
-    $scope.title = '<%= titledName %>';
+    $scope.title = '<%= titledSpacedName %>';
 
   }
 

@@ -27,6 +27,7 @@ var Generator = module.exports = function Generator() {
   this.classedName = this._.classify(this.name);
   this.dasherizedName = this._.dasherize(this.name);
   this.titledName = this._.titleize(this.name);
+  this.titledSpacedName = this.titledName.replace(/-/g, ' ');
 
   if (typeof this.env.options.appPath === 'undefined') {
     this.env.options.appPath = bower.appPath || 'app';
@@ -79,11 +80,9 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, yeoman.generators.NamedBase);
 
 Generator.prototype.addScriptToIndex = function (script) {
-  console.log(this.classedModuleName);
   if (!this.classedModuleName) {
     this.classedModuleName = this._.classify(this.scriptModuleName);
   }
-  console.log(this.classedModuleName);
   var isModule = script.substring(script.lastIndexOf('/') + 1) === '_module.js' ? true : false;
   var spliceValue = [];
   var beginModule = '<!-- module:' + this.classedModuleName + ' -->';
